@@ -1,0 +1,25 @@
+package br.edu.ifpr.bsi.sistemaclubesoft.model.lesao;
+
+import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "tb_lesao")
+public class Lesao extends Jogador {
+    @Column(name = "tipo_lesao")
+    private String tipoLesao;
+    @Column(name = "gravidade")
+    private String gravidade;
+    @Column(name = "inicio")
+    private String inicio;
+    @Column(name = "previsao_retorno")
+    private String previsaoRetorno;
+    @Column(name = "Observacao_DP",length = 1000)
+    private String observacaoDP;
+}
