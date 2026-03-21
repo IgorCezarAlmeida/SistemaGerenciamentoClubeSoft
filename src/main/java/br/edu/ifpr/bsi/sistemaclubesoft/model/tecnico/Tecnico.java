@@ -12,12 +12,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_tecnico")
 public class Tecnico extends GenericModel {
-    @Column(table = "nome_tecnico")
+    @Column(name = "nome_tecnico")
     private String nome;
-    @Column(table = "data_nasc_tecnico")
+    @Column(name = "data_nascimento")
     private String dataNascimento;
-    @Column(table = "email")
+    @Column(name = "email")
     private String email;
-    @Column(table = "senha")
+    @Column(name = "senha")
     private String senha;
 }

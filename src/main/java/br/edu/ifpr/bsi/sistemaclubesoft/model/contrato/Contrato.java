@@ -12,8 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "contrato")
-public class Contrato extends Jogador {
+@Table(name = "tb_contrato")
+public class Contrato extends GenericModel {
     @Column(name = "salario")
     private float salario;
     @Column(name = "tempo_contrato")

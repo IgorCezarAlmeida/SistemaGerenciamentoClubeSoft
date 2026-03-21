@@ -1,5 +1,6 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.model.lesao;
 
+import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_lesao")
-public class Lesao extends Jogador {
+public class Lesao extends GenericModel {
     @Column(name = "tipo_lesao")
     private String tipoLesao;
     @Column(name = "gravidade")

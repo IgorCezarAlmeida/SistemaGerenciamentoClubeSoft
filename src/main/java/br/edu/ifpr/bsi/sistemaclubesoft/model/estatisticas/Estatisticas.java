@@ -1,5 +1,6 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas;
 
+import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +12,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_estatisticas")
-public class Estatisticas extends Jogador {
+public class Estatisticas extends GenericModel {
     @Column(name = "gols")
     private int gols;
     @Column(name = "assistencias")
