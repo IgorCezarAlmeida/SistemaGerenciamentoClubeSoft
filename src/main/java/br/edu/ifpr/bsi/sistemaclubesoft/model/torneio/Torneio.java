@@ -1,11 +1,13 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.model.torneio;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticasAdversario.EstatisticasAdversario;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.partida.Partida;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +22,9 @@ public class Torneio extends GenericModel {
     private String organizador;
     @Column(name = "tipo")
     private String tipo;
+    @OneToMany(mappedBy = "torneio",cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Partida> partidas;
+    @OneToMany(mappedBy = "torneio",cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<EstatisticasAdversario> estatisticasAdversarios;
+
 }

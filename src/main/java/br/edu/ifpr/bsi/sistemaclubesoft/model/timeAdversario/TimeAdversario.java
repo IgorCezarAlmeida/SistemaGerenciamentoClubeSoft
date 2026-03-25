@@ -1,11 +1,14 @@
-package br.edu.ifpr.bsi.sistemaclubesoft.model.time;
+package br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.contrato.Contrato;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.jogo.Jogo;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.partida.Partida;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,4 +23,7 @@ public class TimeAdversario extends GenericModel {
     private String pontos_fracos;
     @Column(name = "tecnico_adversario")
     private String tecnicoAdversario;
+    @OneToMany(mappedBy = "timeAdversario",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<Jogo> jogos;
+
 }

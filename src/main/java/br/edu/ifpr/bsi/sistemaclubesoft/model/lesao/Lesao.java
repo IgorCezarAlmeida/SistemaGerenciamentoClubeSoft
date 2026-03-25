@@ -2,9 +2,7 @@ package br.edu.ifpr.bsi.sistemaclubesoft.model.lesao;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,4 +21,7 @@ public class Lesao extends GenericModel {
     private String previsaoRetorno;
     @Column(name = "Observacao_DP",length = 1000)
     private String observacaoDP;
+    @ManyToOne
+    @JoinColumn(name="jogador_id")
+    private Jogador jogador;
 }

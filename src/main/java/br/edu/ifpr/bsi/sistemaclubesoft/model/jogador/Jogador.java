@@ -1,11 +1,13 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.model.jogador;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.contrato.Contrato;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.Lesao;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,4 +31,9 @@ public class Jogador extends GenericModel {
     private String pernaDominante;
     @Column(name = "posicao")
     private String posicao;
+    @OneToMany(mappedBy = "jogador",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
+    private List<Lesao> lesoes;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @JoinColumn(name = "contrato_id")
+    private Contrato contrato;
 }

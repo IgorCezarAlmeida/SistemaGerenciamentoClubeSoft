@@ -2,9 +2,8 @@ package br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.jogo.Jogo;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,4 +30,10 @@ public class Estatisticas extends GenericModel {
     private int cartoesVermelhos;
     @Column(name = "faltas_jogador")
     private int faltasJogador;
+    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "jogador_id")
+    private Jogador jogador;
+    @ManyToOne
+    @JoinColumn(name = "jogo_id")
+    private Jogo jogo;
 }
