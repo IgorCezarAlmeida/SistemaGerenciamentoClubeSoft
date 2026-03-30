@@ -19,7 +19,7 @@ public class JogadorController {
     @GetMapping
     public ResponseEntity<List<Jogador>> listar(){
         List<Jogador>jogadores = this.jogadorService.listar();
-        return ResponseEntity.ok(jogadores);
+        return ResponseEntity.status(HttpStatus.CREATED).body(jogadores);
     }
 
     @PostMapping
@@ -39,4 +39,5 @@ public class JogadorController {
     public void excluir(@PathVariable Long codigo){
         jogadorService.excluir(codigo);
     }
+
 }

@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.services;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.Lesao;
 import br.edu.ifpr.bsi.sistemaclubesoft.repositories.JogadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class JogadorService {
         return jogadorRepository.findAll();
     }
     public Jogador salvar(Jogador jogador){
+        if (jogador.getLesoes() != null && jogador.getLesoes().isEmpty()){
+            jogador.getLesoes().forEach(lesao -> lesao.setJogador(jogador));
+        }
         return this.jogadorRepository.save(jogador);
     }
     @Transactional
@@ -30,6 +34,9 @@ public class JogadorService {
        } catch (Exception e) {
            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Jogador não encontrado" );
        }
+        if (jogador.getLesoes() != null && jogador.getLesoes().isEmpty()){
+            jogador.getLesoes().forEach( lesao -> lesao.setJogador(jogador));
+        }
        jogador.setCodigo(codigo);
        return this.jogadorRepository.save(jogador);
     }
