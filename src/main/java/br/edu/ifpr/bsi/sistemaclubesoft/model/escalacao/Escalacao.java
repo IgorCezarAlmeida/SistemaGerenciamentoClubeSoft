@@ -1,7 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.model.escalacao;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
-import br.edu.ifpr.bsi.sistemaclubesoft.model.jogo.Jogo;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.partida.Partida;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +16,6 @@ public class Escalacao extends GenericModel {
     @Column(name = "instrucoes")
     private String istrucoes;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    @JoinColumn(name = "jogo_id")
-    private Jogo jogo;
+    @JoinColumn(name = "partida_id")
+    private Partida partida;
 }

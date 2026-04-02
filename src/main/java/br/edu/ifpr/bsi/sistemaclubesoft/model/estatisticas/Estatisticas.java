@@ -2,7 +2,7 @@ package br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas;
 
 import br.edu.ifpr.bsi.sistemaclubesoft.model.GenericModel;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
-import br.edu.ifpr.bsi.sistemaclubesoft.model.jogo.Jogo;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.partida.Partida;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +34,6 @@ public class Estatisticas extends GenericModel {
     @JoinColumn(name = "jogador_id")
     private Jogador jogador;
     @ManyToOne
-    @JoinColumn(name = "jogo_id")
-    private Jogo jogo;
+    @JoinColumn(name = "partida_id")
+    private Partida partida;
 }
