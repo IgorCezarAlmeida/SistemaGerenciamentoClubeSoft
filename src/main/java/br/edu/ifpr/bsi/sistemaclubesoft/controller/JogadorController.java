@@ -22,6 +22,7 @@ public class JogadorController {
         return ResponseEntity.status(HttpStatus.CREATED).body(jogadores);
     }
 
+
     @PostMapping
     public ResponseEntity<Jogador> inserir(@RequestBody Jogador request){
         Jogador jogadorSalvo = jogadorService.salvar(request);
