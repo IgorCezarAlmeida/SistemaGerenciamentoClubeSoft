@@ -21,12 +21,14 @@ public class Jogador extends GenericModel {
     private String dataNascimento;
     @Column(name = "numero_camisa")
     private String numeroCamisa;
-    @Column(name = "peso")
-    private float peso;
-    @Column(name = "altura")
-    private int altura;
+    @Column(name = "peso_KG")
+    private float pesoKG;
+    @Column(name = "altura_CM")
+    private int alturaCM;
     @Column(name = "descricao")
     private String descricao;
+    @Column(name = "disponivel")
+    private String disponivel;
     @Column(name = "pernaDominante")
     private String pernaDominante;
     @Column(name = "posicao")

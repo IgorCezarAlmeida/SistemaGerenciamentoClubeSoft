@@ -18,6 +18,8 @@ public class Lesao extends GenericModel {
     private String gravidade;
     @Column(name = "inicio")
     private String inicio;
+    @Column(name = "fim")
+    private String fim;
     @Column(name = "previsao_retorno")
     private String previsaoRetorno;
     @Column(name = "Observacao_DP",length = 1000)
