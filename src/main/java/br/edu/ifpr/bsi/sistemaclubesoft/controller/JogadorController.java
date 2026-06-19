@@ -1,39 +1,54 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.JogadorDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.JogadorRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.JogadorService;
+import br.edu.ifpr.bsi.sistemaclubesoft.facade.JogadorFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/jogadores")
+@CrossOrigin(origins = "http://localhost:5173")
 public class JogadorController {
 
     @Autowired
     private JogadorService jogadorService;
 
+    @Autowired
+    private JogadorFacade jogadorFacade;
+
     @GetMapping
-    public ResponseEntity<List<Jogador>> listar(){
-        List<Jogador>jogadores = this.jogadorService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(jogadores);
+    public ResponseEntity<List<JogadorDetailDTO>> listarJogadores() {
+        List<JogadorDetailDTO>jogadores = this.jogadorService.listar();
+        return ResponseEntity.ok(jogadores);
     }
 
 
     @PostMapping
-    public ResponseEntity<Jogador> inserir(@RequestBody Jogador request){
-        Jogador jogadorSalvo = jogadorService.salvar(request);
-        return ResponseEntity.ok(jogadorSalvo);
+    public ResponseEntity<JogadorDetailDTO> inserir(@RequestBody JogadorRequestDTO request){
+        JogadorDetailDTO jogadorSalvo = jogadorService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(jogadorSalvo);
     }
 
-    @PutMapping("/{codigo}")
-    public ResponseEntity<Jogador> atualizar(@PathVariable Long codigo, @RequestBody Jogador request){
-        Jogador jogadorAtualizado = jogadorService.atualizar(codigo, request);
-        return ResponseEntity.ok(jogadorAtualizado);
+    @PostMapping("/com-contrato")
+    public ResponseEntity<JogadorDetailDTO> inserirComContrato(@RequestBody JogadorRequestDTO request){
+        JogadorDetailDTO jogadorSalvo = jogadorFacade.criarJogadorComContrato(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(jogadorSalvo);
     }
+
+@PutMapping(value = "/{codigo}",consumes = "multipart/form-data")
+    public ResponseEntity<JogadorDetailDTO> atualizar(@PathVariable Long codigo,
+                                                      @RequestPart("dados") JogadorRequestDTO request,
+                                                      @RequestPart(value = "imagem",required = false) MultipartFile imagem){
+            JogadorDetailDTO jogadorAtualizado = jogadorService.atualizar(codigo, request, imagem);
+            return ResponseEntity.ok(jogadorAtualizado);
+        }
 
     @DeleteMapping("/{codigo}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

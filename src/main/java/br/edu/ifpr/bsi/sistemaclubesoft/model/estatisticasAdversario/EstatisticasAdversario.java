@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_estatisticasaAdversario")
+@Table(name = "tb_estatisticasAdversario")
 public class EstatisticasAdversario extends GenericModel {
     @Column(name = "posse_media_bola")
     private String posseMediaBola;

@@ -14,6 +14,8 @@ import lombok.Setter;
 public class Tecnico extends GenericModel {
     @Column(name = "nome_tecnico")
     private String nome;
+    @Column(name = "CPF")
+    private String cpf;
     @Column(name = "data_nascimento")
     private String dataNascimento;
     @Column(name = "email")

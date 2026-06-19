@@ -33,6 +33,10 @@ public class Jogador extends GenericModel {
     private String pernaDominante;
     @Column(name = "posicao")
     private String posicao;
+
+    @Column(name = "url_foto_jogador")
+    private String urlFotoJogador;
+
     @OneToMany(mappedBy = "jogador",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Lesao> lesoes;
     @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)

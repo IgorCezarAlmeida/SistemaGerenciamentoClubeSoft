@@ -22,8 +22,8 @@ class JogadorRepositoryTest {
     public void testInserir() {
         Jogador jogador = new Jogador();
         jogador.setNome("Jogador 1");
-        jogador.setAltura(180);
-        jogador.setPeso(70);
+        jogador.setAlturaCM(180);
+        jogador.setPesoKG(70);
         jogador.setNumeroCamisa("10");
         jogador.setPosicao("Atacante");
         jogador.setPernaDominante("Direita");
@@ -39,8 +39,8 @@ class JogadorRepositoryTest {
     public void testAtualizar() {
         Jogador jogador = new Jogador();
         jogador.setNome("Jogador 1");
-        jogador.setAltura(180);
-        jogador.setPeso(70);
+        jogador.setAlturaCM(180);
+        jogador.setPesoKG(70);
         jogador.setNumeroCamisa("10");
         jogador.setPosicao("Atacante");
         jogador.setPernaDominante("Direita");
@@ -61,7 +61,7 @@ class JogadorRepositoryTest {
     public void testExcluir() {
         Jogador jogador = new Jogador();
         jogador.setNome("Jogador 1");
-        jogador.setAltura(180);
+        jogador.setAlturaCM(180);
         Jogador jogadorDeletar = jogadorRepository.save(jogador);
         jogadorRepository.delete(jogadorDeletar);
 

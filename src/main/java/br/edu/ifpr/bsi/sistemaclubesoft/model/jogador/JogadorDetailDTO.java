@@ -14,6 +14,7 @@ public record JogadorDetailDTO(String nome,
                                String disponivel,
                                String pernaDominante,
                                String posicao,
+                               String urlFotoJogador,
                                ContratoRequestDTO contrato,
                                List<LesaoRequestDTO> lesoes
 ) {

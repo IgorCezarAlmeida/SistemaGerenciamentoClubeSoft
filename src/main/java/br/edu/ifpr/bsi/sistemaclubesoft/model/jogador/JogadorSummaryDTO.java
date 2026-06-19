@@ -8,6 +8,7 @@ public record JogadorSummaryDTO(String nome,
                                 String descricao,
                                 String disponivel,
                                 String pernaDominante,
-                                String posicao
+                                String posicao,
+                                String urlFotoJogador
 ) {
 }

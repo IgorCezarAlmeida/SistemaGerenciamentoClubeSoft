@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lesoes")
+@CrossOrigin(origins = "http://localhost:5173")
 public class LesaoController {
 
     private LesaoService lesaoService;
