@@ -5,11 +5,12 @@ import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.LesaoRequestDTO;
 
 import java.util.List;
 
-public record JogadorDetailDTO(String nome,
+public record JogadorDetailDTO(Long codigo,
+                               String nome,
                                String dataNascimento,
                                String numeroCamisa,
-                               float pesoKG,
-                               int alturaCM,
+                               Float pesoKG,
+                               Integer alturaCM,
                                String descricao,
                                String disponivel,
                                String pernaDominante,

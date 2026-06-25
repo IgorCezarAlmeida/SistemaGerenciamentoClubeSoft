@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversario;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversarioDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversarioRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.TimeAdversarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,21 +18,21 @@ public class TimeAdversarioController {
     private TimeAdversarioService timeAdversarioService;
 
     @GetMapping
-    public ResponseEntity<List<TimeAdversario>> listar(){
-        List<TimeAdversario>timesAdversarios = this.timeAdversarioService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(timesAdversarios);
+    public ResponseEntity<List<TimeAdversarioDetailDTO>> listar(){
+        List<TimeAdversarioDetailDTO> timesAdversarios = this.timeAdversarioService.listar();
+        return ResponseEntity.ok(timesAdversarios);
     }
 
 
     @PostMapping
-    public ResponseEntity<TimeAdversario> inserir(@RequestBody TimeAdversario request){
-        TimeAdversario timeAdversarioSalvo = timeAdversarioService.salvar(request);
-        return ResponseEntity.ok(timeAdversarioSalvo);
+    public ResponseEntity<TimeAdversarioDetailDTO> inserir(@RequestBody TimeAdversarioRequestDTO request){
+        TimeAdversarioDetailDTO timeAdversarioSalvo = timeAdversarioService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(timeAdversarioSalvo);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<TimeAdversario> atualizar(@PathVariable Long codigo, @RequestBody TimeAdversario request){
-        TimeAdversario timeAdversarioAtualizado = timeAdversarioService.atualizar(codigo, request);
+    public ResponseEntity<TimeAdversarioDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody TimeAdversarioRequestDTO request){
+        TimeAdversarioDetailDTO timeAdversarioAtualizado = timeAdversarioService.atualizar(codigo, request);
         return ResponseEntity.ok(timeAdversarioAtualizado);
     }
 

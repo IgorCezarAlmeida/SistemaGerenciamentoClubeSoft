@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -44,9 +43,8 @@ public class JogadorController {
 
 @PutMapping(value = "/{codigo}",consumes = "multipart/form-data")
     public ResponseEntity<JogadorDetailDTO> atualizar(@PathVariable Long codigo,
-                                                      @RequestPart("dados") JogadorRequestDTO request,
-                                                      @RequestPart(value = "imagem",required = false) MultipartFile imagem){
-            JogadorDetailDTO jogadorAtualizado = jogadorService.atualizar(codigo, request, imagem);
+                                                      @RequestPart("dados") JogadorRequestDTO request){
+            JogadorDetailDTO jogadorAtualizado = jogadorService.atualizar(codigo, request);
             return ResponseEntity.ok(jogadorAtualizado);
         }
 

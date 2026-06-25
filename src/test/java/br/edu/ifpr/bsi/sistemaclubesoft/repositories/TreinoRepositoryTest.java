@@ -62,7 +62,7 @@ public class TreinoRepositoryTest {
         treinoRepository.delete(treinoDeletar);
 
         Treino treinoDeletado = treinoRepository.findById(treino.getCodigo()).orElse(null);
-        Assertions.assertNotNull(treinoDeletado,"O treino ainda se encontra no banco.");
+        Assertions.assertNull(treinoDeletado,"O treino ainda se encontra no banco.");
     }
 
     @Test

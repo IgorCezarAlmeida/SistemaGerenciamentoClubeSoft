@@ -7,6 +7,7 @@ import br.edu.ifpr.bsi.sistemaclubesoft.Mapper.ContratoMapper;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.Jogador;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.JogadorDetailDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.JogadorRequestDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.repositories.JogadorRepository;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.JogadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,21 +25,18 @@ public class JogadorFacadeImpl implements JogadorFacade {
     @Autowired
     private ContratoMapper contratoMapper;
 
+    @Autowired
+    private JogadorRepository jogadorRepository;
+
     @Override
     @Transactional
     public JogadorDetailDTO criarJogadorComContrato(JogadorRequestDTO jogadorRequestDTO, Contrato contrato) {
-        // Converte request DTO para entidade
         Jogador jogador = this.jogadorMapper.requestDTOToEntity(jogadorRequestDTO);
-
-        // vincula contrato à entidade jogador
         jogador.setContrato(contrato);
-
-        // Cria um JogadorRequestDTO atualizado para reutilizar a lógica existente do serviço
-        // Salva via JogadorService que já trata lesões e persistência
-        JogadorDetailDTO jogadorSalvo = this.jogadorService.salvar(jogadorRequestDTO);
-
-        // retornar DTO de detalhe
-        return jogadorSalvo;
+        if (jogador.getLesoes() != null && !jogador.getLesoes().isEmpty()) {
+            jogador.getLesoes().forEach(lesao -> lesao.setJogador(jogador));
+        }
+        return this.jogadorMapper.entityToDetailDTO(this.jogadorRepository.save(jogador));
     }
 
     @Override

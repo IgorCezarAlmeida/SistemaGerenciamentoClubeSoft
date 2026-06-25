@@ -54,7 +54,7 @@ public class EscalacaoRepositoryTest {
         escalacaoRepository.delete(escalacaoDeletar);
 
         Escalacao escalacaoDeletada = escalacaoRepository.findById(escalacao.getCodigo()).orElse(null);
-        Assertions.assertNotNull(escalacaoDeletada,"A escalação ainda se encontra no banco.");
+        Assertions.assertNull(escalacaoDeletada,"A escalação ainda se encontra no banco.");
     }
 
     @Test

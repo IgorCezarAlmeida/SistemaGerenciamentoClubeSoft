@@ -30,6 +30,7 @@ class JogadorFacadeImplTest {
     void setUp() {
         // Prepara dados de teste
         contratoResponseDTO = new ContratoResponseDTO(
+            null,
             5000.0f,  // salario
             24  // tempoDeContrato
         );
@@ -118,5 +119,6 @@ class JogadorFacadeImplTest {
         assertEquals(5000.0f, resultado.contrato().salario(), "O salário do contrato deve estar correto");
     }
 }
+
 
 

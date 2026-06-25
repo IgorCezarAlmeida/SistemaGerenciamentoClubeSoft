@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.treino.Treino;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.treino.TreinoDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.treino.TreinoRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.TreinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,21 +19,21 @@ public class TreinoController {
     private TreinoService treinoService;
 
     @GetMapping
-    public ResponseEntity<List<Treino>> listar(){
-        List<Treino>treinos = this.treinoService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(treinos);
+    public ResponseEntity<List<TreinoDetailDTO>> listar(){
+        List<TreinoDetailDTO> treinos = this.treinoService.listar();
+        return ResponseEntity.ok(treinos);
     }
 
 
     @PostMapping
-    public ResponseEntity<Treino> inserir(@RequestBody Treino request){
-        Treino  treinoSalvo = treinoService.salvar(request);
-        return ResponseEntity.ok(treinoSalvo);
+    public ResponseEntity<TreinoDetailDTO> inserir(@RequestBody TreinoRequestDTO request){
+        TreinoDetailDTO treinoSalvo = treinoService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(treinoSalvo);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Treino> atualizar(@PathVariable Long codigo, @RequestBody Treino request){
-        Treino treinoAtualizado = treinoService.atualizar(codigo, request);
+    public ResponseEntity<TreinoDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody TreinoRequestDTO request){
+        TreinoDetailDTO treinoAtualizado = treinoService.atualizar(codigo, request);
         return ResponseEntity.ok(treinoAtualizado);
     }
 

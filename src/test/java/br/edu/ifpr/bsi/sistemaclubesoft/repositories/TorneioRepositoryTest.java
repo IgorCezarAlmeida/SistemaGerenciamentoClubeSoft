@@ -60,7 +60,7 @@ public class TorneioRepositoryTest {
         torneioRepository.delete(torneioDeletar);
 
         Torneio torneioDeletado = torneioRepository.findById(torneio.getCodigo()).orElse(null);
-        Assertions.assertNotNull(torneioDeletado,"O torneio ainda se encontra no banco.");
+        Assertions.assertNull(torneioDeletado,"O torneio ainda se encontra no banco.");
     }
 
     @Test
@@ -72,7 +72,7 @@ public class TorneioRepositoryTest {
 
         torneioRepository.save(torneio);
 
-        List<Torneio> torneios = torneioRepository.findByNome("Brasileirao");
+        List<Torneio> torneios = torneioRepository.findByNome("Brasileirão");
         Assertions.assertFalse(torneios.isEmpty(),"Torneio não encontrado.");
     }
 

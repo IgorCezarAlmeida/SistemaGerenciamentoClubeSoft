@@ -1,6 +1,9 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.services;
 
+import br.edu.ifpr.bsi.sistemaclubesoft.Mapper.TorneioMapper;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.torneio.Torneio;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.torneio.TorneioDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.torneio.TorneioRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.repositories.TorneioRepository;
 import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
@@ -16,30 +19,35 @@ public class TorneioService {
     @Resource
     private TorneioRepository torneioRepository;
 
-    public List<Torneio> listar(){
-        return torneioRepository.findAll();
+    @Resource
+    private TorneioMapper torneioMapper;
+
+    public List<TorneioDetailDTO> listar(){
+        return torneioRepository.findAll()
+                .stream()
+                .map(torneioMapper::entityToDetailDTO)
+                .toList();
     }
-    public Torneio salvar(Torneio torneio){
-        return this.torneioRepository.save(torneio);
+
+    public TorneioDetailDTO salvar(TorneioRequestDTO request){
+        Torneio torneio = torneioMapper.requestDTOToEntity(request);
+        return torneioMapper.entityToDetailDTO(this.torneioRepository.save(torneio));
     }
+
     @Transactional
-    public Torneio atualizar(Long codigo,Torneio torneio){
-        try {
-            Torneio torneioEncontrado = this.torneioRepository.findById(codigo).orElse(null);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Torneio não encontrado" );
-        }
+    public TorneioDetailDTO atualizar(Long codigo, TorneioRequestDTO request){
+        this.torneioRepository.findById(codigo).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Torneio não encontrado"));
+
+        Torneio torneio = torneioMapper.requestDTOToEntity(request);
         torneio.setCodigo(codigo);
-        return this.torneioRepository.save(torneio);
+        return torneioMapper.entityToDetailDTO(this.torneioRepository.save(torneio));
     }
 
     @Transactional
     public void excluir(Long codigo){
-        try {
-            Torneio torneioExcluir = this.torneioRepository.findById(codigo).orElse(null);
-            torneioRepository.delete(torneioExcluir);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Torneio não encontrado" );
-        }
+        Torneio torneioExcluir = this.torneioRepository.findById(codigo).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Torneio não encontrado"));
+        torneioRepository.delete(torneioExcluir);
     }
 }

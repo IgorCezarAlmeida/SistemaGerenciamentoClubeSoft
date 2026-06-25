@@ -1,7 +1,8 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.escalacao.Escalacao;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.escalacao.EscalacaoDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.escalacao.EscalacaoRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.EscalacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,22 +20,22 @@ public class EscalacaoController {
     private EscalacaoService escalacaoService;
 
     @GetMapping
-    public ResponseEntity<List<Escalacao>> listar(){
-        List<Escalacao>contratos = this.escalacaoService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(contratos);
+    public ResponseEntity<List<EscalacaoDetailDTO>> listar(){
+        List<EscalacaoDetailDTO> escalacoes = this.escalacaoService.listar();
+        return ResponseEntity.ok(escalacoes);
     }
 
 
     @PostMapping
-    public ResponseEntity<Escalacao> inserir(@RequestBody Escalacao request){
-        Escalacao escalacaoSalva = escalacaoService.salvar(request);
-        return ResponseEntity.ok(escalacaoSalva);
+    public ResponseEntity<EscalacaoDetailDTO> inserir(@RequestBody EscalacaoRequestDTO request){
+        EscalacaoDetailDTO escalacaoSalva = escalacaoService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(escalacaoSalva);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Escalacao> atualizar(@PathVariable Long codigo, @RequestBody Escalacao request){
-        Escalacao jogadorAtualizado = escalacaoService.atualizar(codigo, request);
-        return ResponseEntity.ok(jogadorAtualizado);
+    public ResponseEntity<EscalacaoDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody EscalacaoRequestDTO request){
+        EscalacaoDetailDTO escalacaoAtualizada = escalacaoService.atualizar(codigo, request);
+        return ResponseEntity.ok(escalacaoAtualizada);
     }
 
     @DeleteMapping("/{codigo}")

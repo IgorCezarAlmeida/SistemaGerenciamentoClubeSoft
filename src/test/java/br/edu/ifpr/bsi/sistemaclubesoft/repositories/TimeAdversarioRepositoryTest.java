@@ -62,7 +62,7 @@ public class TimeAdversarioRepositoryTest {
         timeAdversarioRepository.delete(timeAdversarioDeletar);
 
         TimeAdversario timeAdversarioDeletado = timeAdversarioRepository.findById(timeAdversario.getCodigo()).orElse(null);
-        Assertions.assertNotNull(timeAdversarioDeletado,"O time Adversario ainda se encontra no banco.");
+        Assertions.assertNull(timeAdversarioDeletado,"O time Adversario ainda se encontra no banco.");
     }
 
     @Test

@@ -66,18 +66,23 @@ class JogadorRepositoryTest {
         jogadorRepository.delete(jogadorDeletar);
 
         Jogador jogadorDeletado = jogadorRepository.findById(jogador.getCodigo()).orElse(null);
-        Assertions.assertNotNull(jogadorDeletado,"O jogador ainda se encontra no banco.");
+        Assertions.assertNull(jogadorDeletado,"O jogador ainda se encontra no banco.");
     }
 
     @Test
     public void testBuscarNome(){
         Jogador jogador = new Jogador();
-        jogador.setNome("Igor");
+        jogador.setNome("Jogador Teste Buscar Nome");
+        jogador.setAlturaCM(181);
+        jogador.setPesoKG(75);
+        jogador.setNumeroCamisa("11");
         jogador.setPosicao("Atacante");
+        jogador.setPernaDominante("Direita");
+        jogador.setDescricao("Jogador criado para teste de busca por nome.");
 
         jogadorRepository.save(jogador);
 
-        List<Jogador> jogadores = jogadorRepository.findByNome("Igor");
+        List<Jogador> jogadores = jogadorRepository.findByNome("Jogador Teste Buscar Nome");
         Assertions.assertFalse(jogadores.isEmpty(),"Jogador não encontrado.");
     }
 

@@ -3,6 +3,7 @@ package br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.jogador.JogadorResponseDTO;
 
 public record EstatisticasDetailDTO(
+        Long codigo,
         int gols,
         int assistencias,
         int passes,

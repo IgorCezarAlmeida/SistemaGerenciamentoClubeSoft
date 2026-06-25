@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas.Estatisticas;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas.EstatisticasDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticas.EstatisticasRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.EstatisticasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,21 +19,21 @@ public class EstatisticasController {
     private EstatisticasService estatisticasService;
 
     @GetMapping
-    public ResponseEntity<List<Estatisticas>> listar(){
-        List<Estatisticas>contratos = this.estatisticasService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(contratos);
+    public ResponseEntity<List<EstatisticasDetailDTO>> listar(){
+        List<EstatisticasDetailDTO> estatisticas = this.estatisticasService.listar();
+        return ResponseEntity.ok(estatisticas);
     }
 
 
     @PostMapping
-    public ResponseEntity<Estatisticas> inserir(@RequestBody Estatisticas request){
-        Estatisticas estatisticaSalva = estatisticasService.salvar(request);
-        return ResponseEntity.ok(estatisticaSalva);
+    public ResponseEntity<EstatisticasDetailDTO> inserir(@RequestBody EstatisticasRequestDTO request){
+        EstatisticasDetailDTO estatisticaSalva = estatisticasService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(estatisticaSalva);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Estatisticas> atualizar(@PathVariable Long codigo, @RequestBody Estatisticas request){
-        Estatisticas estatisticasAtualizada = estatisticasService.atualizar(codigo, request);
+    public ResponseEntity<EstatisticasDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody EstatisticasRequestDTO request){
+        EstatisticasDetailDTO estatisticasAtualizada = estatisticasService.atualizar(codigo, request);
         return ResponseEntity.ok(estatisticasAtualizada);
     }
 

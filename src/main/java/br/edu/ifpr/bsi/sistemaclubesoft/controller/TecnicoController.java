@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.tecnico.Tecnico;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.tecnico.TecnicoDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.tecnico.TecnicoRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.TecnicoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,22 +19,22 @@ public class TecnicoController {
     private TecnicoService tecnicoService;
 
     @GetMapping
-    public ResponseEntity<List<Tecnico>> listar(){
-        List<Tecnico>tecnicos = this.tecnicoService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(tecnicos);
+    public ResponseEntity<List<TecnicoDetailDTO>> listar(){
+        List<TecnicoDetailDTO> tecnicos = this.tecnicoService.listar();
+        return ResponseEntity.ok(tecnicos);
     }
 
 
     @PostMapping
-    public ResponseEntity<Tecnico> inserir(@RequestBody Tecnico request){
-        Tecnico tecnicoSalvo = tecnicoService.salvar(request);
-        return ResponseEntity.ok(tecnicoSalvo);
+    public ResponseEntity<TecnicoDetailDTO> inserir(@RequestBody TecnicoRequestDTO request){
+        TecnicoDetailDTO tecnicoSalvo = tecnicoService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tecnicoSalvo);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Tecnico> atualizar(@PathVariable Long codigo, @RequestBody Tecnico request){
-        Tecnico jogadorAtualizado = tecnicoService.atualizar(codigo, request);
-        return ResponseEntity.ok(jogadorAtualizado);
+    public ResponseEntity<TecnicoDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody TecnicoRequestDTO request){
+        TecnicoDetailDTO tecnicoAtualizado = tecnicoService.atualizar(codigo, request);
+        return ResponseEntity.ok(tecnicoAtualizado);
     }
 
     @DeleteMapping("/{codigo}")

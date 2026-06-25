@@ -22,9 +22,9 @@ public class Jogador extends GenericModel {
     @Column(name = "numero_camisa")
     private String numeroCamisa;
     @Column(name = "peso_KG")
-    private float pesoKG;
+    private Float pesoKG;
     @Column(name = "altura_CM")
-    private int alturaCM;
+    private Integer alturaCM;
     @Column(name = "descricao")
     private String descricao;
     @Column(name = "disponivel")

@@ -59,7 +59,7 @@ public class TecnicoRepositoryTest {
         tecnicoRepository.delete(tecnicoDeletar);
 
         Tecnico tecnicoDeletado = tecnicoRepository.findById(tecnico.getCodigo()).orElse(null);
-        Assertions.assertNotNull(tecnicoDeletado,"O tecnico ainda se encontra no banco.");
+        Assertions.assertNull(tecnicoDeletado,"O tecnico ainda se encontra no banco.");
     }
 
 }

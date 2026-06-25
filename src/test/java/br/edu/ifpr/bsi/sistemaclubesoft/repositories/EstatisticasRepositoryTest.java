@@ -72,7 +72,7 @@ public class EstatisticasRepositoryTest {
         estatisticasRepository.delete(estatisticasDeletar);
 
         Estatisticas estatisticasDeletado = estatisticasRepository.findById(estatisticas.getCodigo()).orElse(null);
-        Assertions.assertNotNull(estatisticasDeletado,"As estatisticas ainda se encontram no banco.");
+        Assertions.assertNull(estatisticasDeletado,"As estatisticas ainda se encontram no banco.");
     }
 
     @Test

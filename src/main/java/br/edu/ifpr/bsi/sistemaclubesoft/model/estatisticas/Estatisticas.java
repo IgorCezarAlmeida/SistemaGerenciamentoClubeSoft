@@ -30,9 +30,10 @@ public class Estatisticas extends GenericModel {
     private int cartoesVermelhos;
     @Column(name = "faltas_jogador")
     private int faltasJogador;
-    @OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "jogador_id")
     private Jogador jogador;
+
     @ManyToOne
     @JoinColumn(name = "partida_id")
     private Partida partida;

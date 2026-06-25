@@ -57,7 +57,7 @@ public class EstatisticasAdversarioRepositoryTest {
         estatisticasAdversarioRepository.delete(estatisticasAdversarioDeletar);
 
         EstatisticasAdversario estatisticasAdversarioDeletado = estatisticasAdversarioRepository.findById(estatisticasAdversario.getCodigo()).orElse(null);
-        Assertions.assertNotNull(estatisticasAdversarioDeletado,"As estatisticas ainda se encontra no banco.");
+        Assertions.assertNull(estatisticasAdversarioDeletado,"As estatisticas ainda se encontra no banco.");
     }
 
     @Test

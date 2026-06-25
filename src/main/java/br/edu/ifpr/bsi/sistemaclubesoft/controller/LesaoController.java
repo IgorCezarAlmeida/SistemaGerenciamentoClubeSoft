@@ -1,7 +1,9 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.Lesao;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.LesaoRequestDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.lesao.LesaoResponseDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.LesaoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,24 +15,25 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:5173")
 public class LesaoController {
 
+    @Autowired
     private LesaoService lesaoService;
 
     @GetMapping
-    public ResponseEntity<List<Lesao>> listar(){
-        List<Lesao>lesoes = this.lesaoService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(lesoes);
+    public ResponseEntity<List<LesaoResponseDTO>> listar(){
+        List<LesaoResponseDTO> lesoes = this.lesaoService.listar();
+        return ResponseEntity.ok(lesoes);
     }
 
 
     @PostMapping
-    public ResponseEntity<Lesao> inserir(@RequestBody Lesao request){
-        Lesao lesaoSalva = lesaoService.salvar(request);
-        return ResponseEntity.ok(lesaoSalva);
+    public ResponseEntity<LesaoResponseDTO> inserir(@RequestBody LesaoRequestDTO request){
+        LesaoResponseDTO lesaoSalva = lesaoService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(lesaoSalva);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Lesao> atualizar(@PathVariable Long codigo, @RequestBody Lesao request){
-        Lesao lesaoAtualizada = lesaoService.atualizar(codigo, request);
+    public ResponseEntity<LesaoResponseDTO> atualizar(@PathVariable Long codigo, @RequestBody LesaoRequestDTO request){
+        LesaoResponseDTO lesaoAtualizada = lesaoService.atualizar(codigo, request);
         return ResponseEntity.ok(lesaoAtualizada);
     }
 

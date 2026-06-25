@@ -58,7 +58,7 @@ public class PartidaRepositoryTest {
         partidaRepository.delete(partidaDeletar);
 
         Partida partidaDeletada = partidaRepository.findById(partida.getCodigo()).orElse(null);
-        Assertions.assertNotNull(partidaDeletada,"A partida ainda se encontra no banco.");
+        Assertions.assertNull(partidaDeletada,"A partida ainda se encontra no banco.");
     }
 
     @Test

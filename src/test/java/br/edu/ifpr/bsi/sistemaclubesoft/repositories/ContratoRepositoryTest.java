@@ -54,7 +54,7 @@ public class ContratoRepositoryTest {
         contratoRepository.delete(contratoDeletar);
 
         Contrato contratoDeletado = contratoRepository.findById(contrato.getCodigo()).orElse(null);
-        Assertions.assertNotNull(contratoDeletado,"O contrato ainda se encontra no banco.");
+        Assertions.assertNull(contratoDeletado,"O contrato ainda se encontra no banco.");
     }
 
     @Test
@@ -65,7 +65,7 @@ public class ContratoRepositoryTest {
 
         contratoRepository.save(contrato);
 
-        List<Contrato> contratos = contratoRepository.findBySalario(100000);
+        List<Contrato> contratos = contratoRepository.findBySalario(1000000);
         Assertions.assertFalse(contratos.isEmpty(),"Contrato não encontrado.");
     }
 

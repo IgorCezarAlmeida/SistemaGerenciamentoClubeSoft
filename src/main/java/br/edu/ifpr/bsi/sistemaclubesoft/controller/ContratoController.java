@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.contrato.Contrato;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.contrato.ContratoRequestDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.contrato.ContratoResponseDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.ContratoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,28 +12,29 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/contratos")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ContratoController {
 
     @Autowired
     private ContratoService contratoService;
 
     @GetMapping
-    public ResponseEntity<List<Contrato>> listar(){
-        List<Contrato>contratos = this.contratoService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(contratos);
+    public ResponseEntity<List<ContratoResponseDTO>> listar(){
+        List<ContratoResponseDTO> contratos = this.contratoService.listar();
+        return ResponseEntity.ok(contratos);
     }
 
 
     @PostMapping
-    public ResponseEntity<Contrato> inserir(@RequestBody Contrato request){
-        Contrato contratoSalvo = contratoService.salvar(request);
-        return ResponseEntity.ok(contratoSalvo);
+    public ResponseEntity<ContratoResponseDTO> inserir(@RequestBody ContratoRequestDTO request){
+        ContratoResponseDTO contratoSalvo = contratoService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(contratoSalvo);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Contrato> atualizar(@PathVariable Long codigo, @RequestBody Contrato request){
-        Contrato jogadorAtualizado = contratoService.atualizar(codigo, request);
-        return ResponseEntity.ok(jogadorAtualizado);
+    public ResponseEntity<ContratoResponseDTO> atualizar(@PathVariable Long codigo, @RequestBody ContratoRequestDTO request){
+        ContratoResponseDTO contratoAtualizado = contratoService.atualizar(codigo, request);
+        return ResponseEntity.ok(contratoAtualizado);
     }
 
     @DeleteMapping("/{codigo}")

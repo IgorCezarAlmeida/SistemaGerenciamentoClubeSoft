@@ -1,6 +1,9 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.services;
 
+import br.edu.ifpr.bsi.sistemaclubesoft.Mapper.TimeAdversarioMapper;
 import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversario;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversarioDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.timeAdversario.TimeAdversarioRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.repositories.TimeAdversarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,30 +19,35 @@ public class TimeAdversarioService {
     @Autowired
     private TimeAdversarioRepository timeAdversarioRepository;
 
-    public List<TimeAdversario> listar(){
-        return timeAdversarioRepository.findAll();
+    @Autowired
+    private TimeAdversarioMapper timeAdversarioMapper;
+
+    public List<TimeAdversarioDetailDTO> listar(){
+        return timeAdversarioRepository.findAll()
+                .stream()
+                .map(timeAdversarioMapper::entityToDetailDTO)
+                .toList();
     }
-    public TimeAdversario salvar(TimeAdversario timeAdversario){
-        return this.timeAdversarioRepository.save(timeAdversario);
+
+    public TimeAdversarioDetailDTO salvar(TimeAdversarioRequestDTO request){
+        TimeAdversario timeAdversario = timeAdversarioMapper.requestDTOToEntity(request);
+        return timeAdversarioMapper.entityToDetailDTO(this.timeAdversarioRepository.save(timeAdversario));
     }
+
     @Transactional
-    public TimeAdversario atualizar(Long codigo,TimeAdversario timeAdversario){
-        try {
-            TimeAdversario TimeAdversarioEncontrado = this.timeAdversarioRepository.findById(codigo).orElse(null);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Time Adversario não encontrado" );
-        }
+    public TimeAdversarioDetailDTO atualizar(Long codigo, TimeAdversarioRequestDTO request){
+        this.timeAdversarioRepository.findById(codigo).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Time Adversario não encontrado"));
+
+        TimeAdversario timeAdversario = timeAdversarioMapper.requestDTOToEntity(request);
         timeAdversario.setCodigo(codigo);
-        return this.timeAdversarioRepository.save(timeAdversario);
+        return timeAdversarioMapper.entityToDetailDTO(this.timeAdversarioRepository.save(timeAdversario));
     }
 
     @Transactional
     public void excluir(Long codigo){
-        try {
-            TimeAdversario timeAdversarioExcluir = this.timeAdversarioRepository.findById(codigo).orElse(null);
-            timeAdversarioRepository.delete(timeAdversarioExcluir);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Time Adversario não encontrado" );
-        }
+        TimeAdversario timeAdversarioExcluir = this.timeAdversarioRepository.findById(codigo).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND, "Time Adversario não encontrado"));
+        timeAdversarioRepository.delete(timeAdversarioExcluir);
     }
 }

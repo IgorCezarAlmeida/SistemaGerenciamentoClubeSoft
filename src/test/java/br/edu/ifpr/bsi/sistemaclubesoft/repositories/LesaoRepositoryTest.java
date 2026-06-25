@@ -64,7 +64,7 @@ public class LesaoRepositoryTest {
         lesaoRepository.delete(lesaoDeletar);
 
         Lesao lesaoDeletada = lesaoRepository.findById(lesao.getCodigo()).orElse(null);
-        Assertions.assertNotNull(lesaoDeletada,"A lesao ainda se encontra no banco.");
+        Assertions.assertNull(lesaoDeletada,"A lesao ainda se encontra no banco.");
     }
 
     @Test

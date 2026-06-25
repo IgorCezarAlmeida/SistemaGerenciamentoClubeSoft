@@ -1,6 +1,7 @@
 package br.edu.ifpr.bsi.sistemaclubesoft.controller;
 
-import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticasAdversario.EstatisticasAdversario;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticasAdversario.EstatisticasAdversarioDetailDTO;
+import br.edu.ifpr.bsi.sistemaclubesoft.model.estatisticasAdversario.EstatisticasAdversarioRequestDTO;
 import br.edu.ifpr.bsi.sistemaclubesoft.services.EstatisticasAdversarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,21 +17,21 @@ public class EstatisticasAdversarioController {
     private EstatisticasAdversarioService estatisticasAdversarioService;
 
     @GetMapping
-    public ResponseEntity<List<EstatisticasAdversario>> listar(){
-        List<EstatisticasAdversario>contratos = this.estatisticasAdversarioService.listar();
-        return ResponseEntity.status(HttpStatus.CREATED).body(contratos);
+    public ResponseEntity<List<EstatisticasAdversarioDetailDTO>> listar(){
+        List<EstatisticasAdversarioDetailDTO> estatisticas = this.estatisticasAdversarioService.listar();
+        return ResponseEntity.ok(estatisticas);
     }
 
 
     @PostMapping
-    public ResponseEntity<EstatisticasAdversario> inserir(@RequestBody EstatisticasAdversario request){
-        EstatisticasAdversario contratoSalvo = estatisticasAdversarioService.salvar(request);
-        return ResponseEntity.ok(contratoSalvo);
+    public ResponseEntity<EstatisticasAdversarioDetailDTO> inserir(@RequestBody EstatisticasAdversarioRequestDTO request){
+        EstatisticasAdversarioDetailDTO estatisticasSalvas = estatisticasAdversarioService.salvar(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(estatisticasSalvas);
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<EstatisticasAdversario> atualizar(@PathVariable Long codigo, @RequestBody EstatisticasAdversario request){
-        EstatisticasAdversario estatisticasAdversarioAtualizado = estatisticasAdversarioService.atualizar(codigo, request);
+    public ResponseEntity<EstatisticasAdversarioDetailDTO> atualizar(@PathVariable Long codigo, @RequestBody EstatisticasAdversarioRequestDTO request){
+        EstatisticasAdversarioDetailDTO estatisticasAdversarioAtualizado = estatisticasAdversarioService.atualizar(codigo, request);
         return ResponseEntity.ok(estatisticasAdversarioAtualizado);
     }
 
