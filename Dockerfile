@@ -4,5 +4,5 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jdk-jammy
 COPY --from=build /target/*.war app.jar
-EXPOSE 8080
+EXPOSE 6543
 ENTRYPOINT ["java", "-jar", "app.jar"]
